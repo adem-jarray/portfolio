@@ -17,7 +17,7 @@ Personal portfolio website of **Adem Jarray**, a Computer Science student and Fu
 
 ## Tech
 
-Plain HTML + CSS + JavaScript — no build step, no dependencies. Fonts ([Inter](https://fonts.google.com/specimen/Inter), [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)) and icon sets (Font Awesome, Devicon) are loaded from CDNs.
+Plain HTML + CSS + JavaScript — no build step, no dependencies. Smooth scrolling is powered by [Lenis](https://github.com/darkroomengineering/lenis) (CDN). Fonts ([Inter](https://fonts.google.com/specimen/Inter), [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)) and icon sets (Font Awesome, Devicon) are loaded from CDNs.
 
 ## Run locally
 

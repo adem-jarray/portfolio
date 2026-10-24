@@ -4,6 +4,17 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ===== SMOOTH SCROLLING (LENIS) =====
+    // https://github.com/darkroomengineering/lenis
+    // respectReducedMotion is enabled by default: users with
+    // prefers-reduced-motion get native instant scrolling.
+    let lenis = null;
+    if (window.Lenis) {
+        lenis = new Lenis({
+            autoRaf: true,
+        });
+    }
+
     // ===== NAVBAR SCROLL EFFECT =====
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -203,16 +214,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== SMOOTH SCROLL FOR ALL ANCHOR LINKS =====
+    // Lenis reads the html element's scroll-padding-top, so sections
+    // land below the fixed navbar. Falls back to native scrolling
+    // if the Lenis script failed to load.
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const hash = this.getAttribute('href');
+            if (!hash || hash.length < 2) return;
+            const target = document.querySelector(hash);
+            if (!target) return;
+
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+
+            if (lenis) {
+                lenis.scrollTo(target);
+                // Watchdog: a few embedded webviews never fire
+                // requestAnimationFrame, so Lenis's animation loop
+                // can't run. If nothing moved shortly after the call,
+                // finish the scroll immediately instead.
+                const startY = window.scrollY;
+                setTimeout(() => {
+                    if (Math.abs(window.scrollY - startY) < 1) {
+                        lenis.scrollTo(target, { immediate: true });
+                    }
+                }, 120);
+            } else if (prefersReducedMotion) {
+                target.scrollIntoView();
+            } else {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
+
+            history.replaceState(null, '', hash);
         });
     });
 
