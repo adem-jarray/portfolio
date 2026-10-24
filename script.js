@@ -39,8 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinksContainer = document.getElementById('navLinks');
 
     navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
+        const isOpen = navToggle.classList.toggle('active');
         navLinksContainer.classList.toggle('active');
+        navToggle.setAttribute('aria-expanded', isOpen);
     });
 
     // Close mobile nav on link click
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             navToggle.classList.remove('active');
             navLinksContainer.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
         });
     });
 
@@ -59,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Computer Science Student',
         'UI/UX Enthusiast'
     ];
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -96,14 +99,29 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(type, typingSpeed);
     }
 
-    type();
+    if (prefersReducedMotion) {
+        typewriterEl.textContent = roles[0];
+    } else {
+        type();
+    }
 
     // ===== COUNTER ANIMATION =====
     const statNumbers = document.querySelectorAll('.stat-number');
     let counterAnimated = false;
 
+    function setFinalCounts() {
+        statNumbers.forEach(el => {
+            el.textContent = el.getAttribute('data-count');
+        });
+    }
+
     function animateCounters() {
         if (counterAnimated) return;
+        if (prefersReducedMotion) {
+            counterAnimated = true;
+            setFinalCounts();
+            return;
+        }
 
         const heroSection = document.getElementById('hero');
         const rect = heroSection.getBoundingClientRect();
@@ -134,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== SCROLL REVEAL ANIMATION =====
     const revealElements = document.querySelectorAll(
-        '.skill-category, .project-card, .info-item, .contact-item, .cert-card, .about-content, .about-card, .contact-form, .contact-info'
+        '.skill-category, .project-card, .info-item, .contact-item, .about-content, .about-card, .contact-form, .contact-info'
     );
 
     revealElements.forEach(el => el.classList.add('reveal'));
@@ -152,20 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
-
-    // ===== PARTICLES =====
-    const particlesContainer = document.getElementById('particles');
-    if (particlesContainer) {
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 4 + 's';
-            particle.style.animationDuration = (3 + Math.random() * 4) + 's';
-            particlesContainer.appendChild(particle);
-        }
-    }
 
     // ===== CONTACT FORM =====
     const contactForm = document.getElementById('contactForm');
@@ -186,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = contactForm.querySelector('button[type="submit"]');
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<span>Message Sent!</span> <i class="fas fa-check"></i>';
-            btn.style.background = '#2af598';
-            btn.style.color = '#0a0a0f';
+            btn.style.background = '#22c55e';
+            btn.style.color = '#052e16';
 
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
@@ -209,26 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     block: 'start'
                 });
             }
-        });
-    });
-
-    // ===== TILT EFFECT ON PROJECT CARDS =====
-    const projectCards = document.querySelectorAll('.browser-mockup');
-    projectCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 35;
-            const rotateY = (centerX - x) / 35;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
         });
     });
 
