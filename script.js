@@ -15,6 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ===== HERO CURSOR SPOTLIGHT =====
+    const hero = document.getElementById('hero');
+    const spotlight = document.getElementById('heroSpotlight');
+    if (hero && spotlight && !prefersReducedMotion) {
+        let spotRaf = 0;
+        let spotX = 0;
+        let spotY = 0;
+
+        hero.addEventListener('pointermove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            spotX = e.clientX - rect.left;
+            spotY = e.clientY - rect.top;
+            if (!spotRaf) {
+                spotRaf = requestAnimationFrame(() => {
+                    spotRaf = 0;
+                    spotlight.style.setProperty('--spot-x', spotX + 'px');
+                    spotlight.style.setProperty('--spot-y', spotY + 'px');
+                });
+            }
+        });
+        hero.addEventListener('pointerenter', () => spotlight.classList.add('active'));
+        hero.addEventListener('pointerleave', () => spotlight.classList.remove('active'));
+    }
+
     // ===== NAVBAR SCROLL EFFECT =====
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');

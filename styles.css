@@ -91,6 +91,11 @@ html.lenis body {
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-primary);
+    background-image:
+        radial-gradient(ellipse 55% 35% at 12% 6%, rgba(34, 197, 94, 0.05), transparent 70%),
+        radial-gradient(ellipse 50% 30% at 88% 32%, rgba(45, 212, 191, 0.04), transparent 70%),
+        radial-gradient(ellipse 45% 30% at 50% 96%, rgba(56, 189, 248, 0.04), transparent 70%);
+    background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.7;
     font-size: 1rem;
@@ -290,15 +295,131 @@ button { font-family: inherit; }
     z-index: 0;
 }
 
+/* --- Aurora: drifting color fields (GPU transforms only) --- */
+.aurora {
+    position: absolute;
+    width: 65vmax;
+    height: 65vmax;
+    border-radius: 50%;
+    opacity: 0;
+    animation: auroraIn 2.4s ease-out forwards, auroraDrift var(--drift, 26s) ease-in-out calc(2.4s + var(--delay, 0s)) infinite alternate;
+    will-change: transform, opacity;
+}
+
+.aurora-1 {
+    top: -32vmax;
+    left: -18vmax;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(34, 197, 94, 0.30) 0%,
+        rgba(34, 197, 94, 0.10) 32%,
+        transparent 62%);
+    --drift: 24s;
+    --delay: 0s;
+}
+
+.aurora-2 {
+    top: -28vmax;
+    right: -26vmax;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(45, 212, 191, 0.26) 0%,
+        rgba(45, 212, 191, 0.08) 34%,
+        transparent 62%);
+    --drift: 30s;
+    --delay: 1.4s;
+}
+
+.aurora-3 {
+    top: 18vmax;
+    left: 24vmax;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(56, 189, 248, 0.17) 0%,
+        rgba(56, 189, 248, 0.05) 36%,
+        transparent 64%);
+    --drift: 36s;
+    --delay: 3s;
+}
+
+@keyframes auroraIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes auroraDrift {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate3d(var(--dx, 6vw), var(--dy, 3vh), 0) scale(var(--ds, 1.14)) rotate(9deg);
+    }
+    100% {
+        transform: translate3d(calc(var(--dx, 6vw) * -0.7), calc(var(--dy, 3vh) * -0.6), 0) scale(0.94) rotate(-7deg);
+    }
+}
+
+.aurora-2 { --dx: -7vw; --dy: 5vh; --ds: 1.18; }
+.aurora-3 { --dx: 4vw; --dy: -4vh; --ds: 1.1; }
+
+/* --- Hero grid: slightly luminous so aurora light "reveals" it --- */
 .hero-grid {
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+        linear-gradient(rgba(148, 163, 184, 0.065) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.065) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse at center top, black 25%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse at center top, black 25%, transparent 70%);
+}
+
+/* --- Light beams sweeping across periodically --- */
+.hero-beam {
+    position: absolute;
+    top: -30%;
+    left: var(--beam-left, 20%);
+    width: 220px;
+    height: 160%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(74, 222, 128, 0.03) 22%,
+        rgba(74, 222, 128, 0.07) 50%,
+        rgba(74, 222, 128, 0.03) 78%,
+        transparent 100%);
+    transform: translateX(-50%) rotate(14deg);
+    animation: beamSweep var(--beam-dur, 17s) cubic-bezier(0.45, 0, 0.55, 1) var(--beam-delay, 0s) infinite;
+    will-change: transform, opacity;
+}
+
+.hero-beam-1 { --beam-left: 18%; --beam-dur: 17s; --beam-delay: 2s; }
+.hero-beam-2 { --beam-left: 74%; --beam-dur: 23s; --beam-delay: 9s; }
+
+@keyframes beamSweep {
+    0%, 100% {
+        opacity: 0;
+        transform: translateX(-50%) rotate(14deg) translateX(-16vw);
+    }
+    12% { opacity: 1; }
+    38% { opacity: 1; }
+    50% {
+        opacity: 0;
+        transform: translateX(-50%) rotate(14deg) translateX(16vw);
+    }
+}
+
+/* --- Spotlight: follows the cursor (desktop only) --- */
+.hero-spotlight {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(460px circle at var(--spot-x, 50%) var(--spot-y, 42%),
+        rgba(74, 222, 128, 0.075),
+        transparent 68%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.hero-spotlight.active { opacity: 1; }
+
+@media (hover: none) {
+    .hero-spotlight { display: none; }
 }
 
 .hero-content {
@@ -1215,6 +1336,17 @@ a.contact-item:hover { border-color: var(--border-light); background: var(--bg-c
     .hero-stats,
     .scroll-indicator {
         animation: none;
+    }
+
+    .aurora {
+        animation: none;
+        opacity: 0.85;
+        transform: none;
+    }
+
+    .hero-beam,
+    .hero-spotlight {
+        display: none;
     }
 }
 
