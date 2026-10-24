@@ -11,13 +11,15 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f172a'/%3E%3Ctext x='16' y='21.5' font-family='monospace' font-size='13' font-weight='700' fill='%234ade80' text-anchor='middle'%3EAJ%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <a class="skip-link" href="#about">Skip to content</a>
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
     <!-- ===== NAVIGATION ===== -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -39,6 +41,7 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <a href="#contact" class="nav-cta">Let's Talk</a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
@@ -65,7 +68,10 @@
             </div>
             <h1 class="hero-title">
                 <span class="hero-greeting">Hello, I'm</span>
-                <span class="hero-name">Adem Jarray<span class="accent-dot">.</span></span>
+                <span class="hero-name">
+                    <span class="line">Adem</span>
+                    <span class="line outline">Jarray<span class="accent-dot">.</span></span>
+                </span>
                 <span class="hero-role" id="typewriter"></span>
             </h1>
             <p class="hero-description">
@@ -105,12 +111,39 @@
         </div>
     </section>
 
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item">Full-Stack Development</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">React</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">TypeScript</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Angular</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Mobile Apps</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">UI / UX</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Supabase</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Node.js</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Python</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Full-Stack Development</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">React</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">TypeScript</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Angular</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Mobile Apps</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">UI / UX</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Supabase</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Node.js</span><span class="marquee-sep">✦</span>
+            <span class="marquee-item">Python</span><span class="marquee-sep">✦</span>
+        </div>
+    </div>
+
     <!-- ===== ABOUT SECTION ===== -->
     <section class="section about" id="about">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">01 · About</span>
-                <h2 class="section-title">About Me</h2>
+            <div class="section-head">
+                <div>
+                    <span class="section-tag">01 · About</span>
+                    <h2 class="section-title">Behind<br>the <em>code</em></h2>
+                </div>
+                <span class="section-index">01</span>
             </div>
             <div class="about-grid">
                 <div class="about-content">
@@ -193,18 +226,19 @@
     <!-- ===== SKILLS SECTION ===== -->
     <section class="section skills" id="skills">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">02 · Skills</span>
-                <h2 class="section-title">Skills & Technologies</h2>
+            <div class="section-head">
+                <div>
+                    <span class="section-tag">02 · Skills</span>
+                    <h2 class="section-title">Tools of<br>the <em>trade</em></h2>
+                </div>
+                <span class="section-index">02</span>
             </div>
-            <div class="skills-grid">
+            <div class="skills-grid reveal-stagger">
                 <!-- Frontend -->
-                <div class="skill-category">
+                <div class="skill-category wide">
                     <div class="skill-category-header">
-                        <div class="skill-icon-wrap frontend">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <h3>Frontend</h3>
+                        <h3><div class="skill-icon-wrap"><i class="fas fa-palette"></i></div>Frontend</h3>
+                        <span class="skill-count">8 tools</span>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag"><i class="devicon-react-original colored"></i> React</span>
@@ -220,10 +254,8 @@
                 <!-- Backend -->
                 <div class="skill-category">
                     <div class="skill-category-header">
-                        <div class="skill-icon-wrap backend">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h3>Backend</h3>
+                        <h3><div class="skill-icon-wrap"><i class="fas fa-server"></i></div>Backend</h3>
+                        <span class="skill-count">6 tools</span>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag"><i class="devicon-nodejs-plain colored"></i> Node.js</span>
@@ -237,10 +269,8 @@
                 <!-- Mobile -->
                 <div class="skill-category">
                     <div class="skill-category-header">
-                        <div class="skill-icon-wrap mobile">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>Mobile & Desktop</h3>
+                        <h3><div class="skill-icon-wrap"><i class="fas fa-mobile-alt"></i></div>Mobile & Desktop</h3>
+                        <span class="skill-count">4 tools</span>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag"><i class="devicon-java-plain colored"></i> Java Swing</span>
@@ -252,10 +282,8 @@
                 <!-- Databases -->
                 <div class="skill-category">
                     <div class="skill-category-header">
-                        <div class="skill-icon-wrap database">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h3>Databases & BaaS</h3>
+                        <h3><div class="skill-icon-wrap"><i class="fas fa-database"></i></div>Databases & BaaS</h3>
+                        <span class="skill-count">3 tools</span>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag"><i class="devicon-supabase-plain colored"></i> Supabase</span>
@@ -266,10 +294,8 @@
                 <!-- Tools -->
                 <div class="skill-category">
                     <div class="skill-category-header">
-                        <div class="skill-icon-wrap tools">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h3>Tools & DevOps</h3>
+                        <h3><div class="skill-icon-wrap"><i class="fas fa-tools"></i></div>Tools & DevOps</h3>
+                        <span class="skill-count">7 tools</span>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag"><i class="devicon-git-plain colored"></i> Git &amp; GitHub</span>
@@ -282,12 +308,10 @@
                     </div>
                 </div>
                 <!-- Languages -->
-                <div class="skill-category">
+                <div class="skill-category wide">
                     <div class="skill-category-header">
-                        <div class="skill-icon-wrap languages">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Languages</h3>
+                        <h3><div class="skill-icon-wrap"><i class="fas fa-code"></i></div>Languages</h3>
+                        <span class="skill-count">8 languages</span>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
@@ -307,31 +331,40 @@
     <!-- ===== PROJECTS SECTION ===== -->
     <section class="section projects" id="projects">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">03 · Projects</span>
-                <h2 class="section-title">Featured Projects</h2>
+            <div class="section-head">
+                <div>
+                    <span class="section-tag">03 · Projects</span>
+                    <h2 class="section-title">Selected<br><em>work</em></h2>
+                </div>
+                <span class="section-index">03</span>
             </div>
 
             <!-- Project 1: Haustier -->
-            <div class="project-card project-featured">
-                <div class="browser-mockup">
-                    <div class="browser-header">
-                        <div class="browser-dots">
-                            <span class="b-dot red"></span>
-                            <span class="b-dot yellow"></span>
-                            <span class="b-dot green"></span>
+            <article class="project-card">
+                <div class="project-media">
+                    <div class="browser-mockup">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <span class="b-dot red"></span>
+                                <span class="b-dot yellow"></span>
+                                <span class="b-dot green"></span>
+                            </div>
+                            <div class="project-badge">PFA — 2nd Year</div>
                         </div>
-                        <div class="project-badge">PFA — 2nd Year</div>
-                    </div>
-                    <div class="project-banner-img">
-                        <img src="haustier_banner.png" alt="Haustier Web Interface" loading="lazy">
-                        <div class="banner-gradient-shade"></div>
+                        <div class="project-banner-img">
+                            <img src="haustier_banner.png" alt="Haustier Web Interface" loading="lazy">
+                            <div class="banner-gradient-shade"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="project-body">
+                    <span class="project-ghost" aria-hidden="true">01</span>
+                    <h3 class="project-name">Haustier</h3>
+                    <p class="project-subtitle">Pet services platform — adoption, vets & geolocation</p>
                     <div class="project-meta">
-                        <span class="project-type"><i class="fas fa-graduation-cap"></i> End-of-Year Project (PFA) — Team Project</span>
-                        <span class="project-year"><i class="fas fa-calendar"></i> 2025 – 2026</span>
+                        <span><i class="fas fa-graduation-cap"></i> End-of-Year Project (PFA)</span>
+                        <span><i class="fas fa-users"></i> Team</span>
+                        <span><i class="fas fa-calendar"></i> 2025 – 2026</span>
                     </div>
                     <p class="project-description">
                         A comprehensive full-stack pet services platform covering adoption, association management, and veterinary services. 
@@ -358,32 +391,37 @@
                         <span class="tech-tag"><i class="devicon-vitejs-plain colored"></i> Vite</span>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Project 2: CCN Services -->
-            <div class="project-card project-featured">
-                <div class="browser-mockup">
-                    <div class="browser-header">
-                        <div class="browser-dots">
-                            <span class="b-dot red"></span>
-                            <span class="b-dot yellow"></span>
-                            <span class="b-dot green"></span>
+            <article class="project-card reverse">
+                <div class="project-media">
+                    <div class="browser-mockup">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <span class="b-dot red"></span>
+                                <span class="b-dot yellow"></span>
+                                <span class="b-dot green"></span>
+                            </div>
+                            <div class="browser-url">
+                                <i class="fas fa-lock"></i>
+                                <span>https://ccns.fr</span>
+                            </div>
+                            <div class="project-badge">Summer Internship</div>
                         </div>
-                        <div class="browser-url">
-                            <i class="fas fa-lock"></i>
-                            <span>https://ccns.fr</span>
+                        <div class="project-banner-img">
+                            <img src="ccns_banner_dark.png" alt="CCN Services Web Interface — Dark Mode" loading="lazy">
+                            <div class="banner-gradient-shade"></div>
                         </div>
-                        <div class="project-badge">Summer Internship</div>
-                    </div>
-                    <div class="project-banner-img">
-                        <img src="ccns_banner_dark.png" alt="CCN Services Web Interface — Dark Mode" loading="lazy">
-                        <div class="banner-gradient-shade"></div>
                     </div>
                 </div>
                 <div class="project-body">
+                    <span class="project-ghost" aria-hidden="true">02</span>
+                    <h3 class="project-name">CCN Services</h3>
+                    <p class="project-subtitle">Cybersecurity firm institutional platform — live at ccns.fr</p>
                     <div class="project-meta">
-                        <span class="project-type"><i class="fas fa-briefcase"></i> Stage d'Été — CCNS, Tunis</span>
-                        <span class="project-year"><i class="fas fa-calendar"></i> July – September 2026</span>
+                        <span><i class="fas fa-briefcase"></i> Summer Internship — CCNS, Tunis</span>
+                        <span><i class="fas fa-calendar"></i> Jul – Sep 2026</span>
                     </div>
                     <p class="project-description">
                         Designed and developed the full institutional platform for <strong>CCNS</strong> (Company of Computing and Networking Services), 
@@ -413,32 +451,37 @@
                     </div>
                     <div class="project-links">
                         <a href="https://ccns.fr" class="project-link project-link-primary" target="_blank" rel="noopener">
-                            <i class="fas fa-external-link-alt"></i> Visit Live Site (ccns.fr)
+                            <i class="fas fa-external-link-alt"></i> Visit Live Site
                         </a>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Project 3: BudgetEtudiant -->
-            <div class="project-card project-featured">
-                <div class="browser-mockup">
-                    <div class="browser-header">
-                        <div class="browser-dots">
-                            <span class="b-dot red"></span>
-                            <span class="b-dot yellow"></span>
-                            <span class="b-dot green"></span>
+            <article class="project-card">
+                <div class="project-media">
+                    <div class="browser-mockup">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <span class="b-dot red"></span>
+                                <span class="b-dot yellow"></span>
+                                <span class="b-dot green"></span>
+                            </div>
+                            <div class="project-badge">Personal Project</div>
                         </div>
-                        <div class="project-badge">Personal Project</div>
-                    </div>
-                    <div class="project-banner-img">
-                        <img src="budget_banner.png" alt="BudgetÉtudiant Web Interface" loading="lazy">
-                        <div class="banner-gradient-shade"></div>
+                        <div class="project-banner-img">
+                            <img src="budget_banner.png" alt="BudgetÉtudiant Web Interface" loading="lazy">
+                            <div class="banner-gradient-shade"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="project-body">
+                    <span class="project-ghost" aria-hidden="true">03</span>
+                    <h3 class="project-name">BudgetÉtudiant</h3>
+                    <p class="project-subtitle">Student budget simulator — track, visualize & save</p>
                     <div class="project-meta">
-                        <span class="project-type"><i class="fas fa-lightbulb"></i> Personal Project</span>
-                        <span class="project-year"><i class="fas fa-calendar"></i> 2025</span>
+                        <span><i class="fas fa-lightbulb"></i> Personal Project</span>
+                        <span><i class="fas fa-calendar"></i> 2025</span>
                     </div>
                     <p class="project-description">
                         A single-page web application for student budget simulation and financial management, designed for Tunisian students (in DT — Dinar Tunisien). 
@@ -462,7 +505,7 @@
                         <span class="tech-tag"><i class="devicon-chartjs-plain colored"></i> Chart.js</span>
                     </div>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
 
@@ -494,9 +537,12 @@
     <!-- ===== CONTACT SECTION ===== -->
     <section class="section contact" id="contact">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">04 · Contact</span>
-                <h2 class="section-title">Get In Touch</h2>
+            <div class="section-head">
+                <div>
+                    <span class="section-tag">04 · Contact</span>
+                    <h2 class="section-title">Let's build<br><em>together</em></h2>
+                </div>
+                <span class="section-index">04</span>
             </div>
             <div class="contact-grid">
                 <div class="contact-info">
@@ -574,24 +620,41 @@
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <a href="#hero" class="nav-brand">
-                        <div class="brand-logo-mark">
-                            <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M8.5 10L5 14L8.5 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M19.5 10L23 14L19.5 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16 8L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <div class="brand-text">
-                            <span class="brand-title">Adem Jarray</span>
-                        </div>
+            <div class="footer-cta">
+                <h2 class="footer-title">Have an idea?<br>Let's make it <em>real</em>.</h2>
+                <a href="mailto:ademjr981@gmail.com" class="btn btn-primary">
+                    <span>Start a Conversation</span>
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <a href="#hero" class="footer-brand">
+                    <div class="brand-logo-mark">
+                        <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8.5 10L5 14L8.5 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.5 10L23 14L19.5 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 8L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-title">Adem Jarray</span>
+                    </div>
+                </a>
+                <p class="footer-text">Full-Stack & Mobile Developer — Sousse, Tunisia</p>
+                <div class="footer-social">
+                    <a href="https://github.com/adem-jarray" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/adem-jarray" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:ademjr981@gmail.com" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
                     </a>
                 </div>
-                <p class="footer-text">Full-Stack & Mobile Developer — Sousse, Tunisia</p>
-                <p class="footer-copyright">Designed & built by Adem Jarray · © 2026 All rights reserved.</p>
             </div>
+            <p class="footer-copyright" style="text-align:center; padding-bottom: 24px;">Designed & built by Adem Jarray · © 2026 All rights reserved.</p>
+            <div class="footer-watermark" aria-hidden="true">Adem Jarray</div>
         </div>
     </footer>
 

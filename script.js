@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== SCROLL REVEAL ANIMATION =====
     const revealElements = document.querySelectorAll(
-        '.skill-category, .project-card, .info-item, .contact-item, .about-content, .about-card, .contact-form, .contact-info'
+        '.skills-grid, .section-head, .project-card, .info-item, .contact-item, .about-content, .about-card, .contact-form, .contact-info, .footer-cta'
     );
 
     revealElements.forEach(el => el.classList.add('reveal'));
@@ -205,6 +205,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===== CUSTOM CURSOR =====
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (cursorDot && cursorRing && finePointer && !prefersReducedMotion) {
+        let cursorSeen = false;
+
+        document.addEventListener('pointermove', (e) => {
+            if (!cursorSeen) {
+                cursorSeen = true;
+                document.body.classList.add('cursor-active');
+            }
+            cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            cursorRing.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            const interactive = e.target.closest('a, button, input, textarea, .skill-tag, .tech-tag');
+            cursorRing.classList.toggle('cursor-hover', !!interactive);
+        });
+
+        document.documentElement.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-active');
+            cursorSeen = false;
+        });
+    }
+
+    // ===== MAGNETIC BUTTONS =====
+    if (finePointer && !prefersReducedMotion) {
+        document.querySelectorAll('.btn, .nav-cta').forEach((btn) => {
+            btn.addEventListener('pointermove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = e.clientX - (rect.left + rect.width / 2);
+                const dy = e.clientY - (rect.top + rect.height / 2);
+                btn.style.transform = `translate3d(${dx * 0.22}px, ${dy * 0.22}px, 0)`;
+            });
+            btn.addEventListener('pointerleave', () => {
+                btn.style.transform = '';
+            });
+        });
+    }
+
+    // ===== BENTO CARD SPOTLIGHT =====
+    document.querySelectorAll('.skill-category').forEach((card) => {
+        card.addEventListener('pointermove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--card-x', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--card-y', (e.clientY - rect.top) + 'px');
+        });
+    });
+
+    // ===== PROJECT BANNER PARALLAX =====
+    const parallaxImages = document.querySelectorAll('.project-banner-img img');
+
+    function updateParallax() {
+        if (prefersReducedMotion || !parallaxImages.length) return;
+        const vh = window.innerHeight;
+        parallaxImages.forEach((img) => {
+            const rect = img.parentElement.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > vh) return;
+            const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+            const clamped = Math.max(-1, Math.min(1, progress));
+            img.style.transform = `translate3d(0, ${clamped * -34}px, 0) scale(1.12)`;
+        });
+    }
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax();
 
     // ===== CONTACT FORM =====
     const contactForm = document.getElementById('contactForm');
